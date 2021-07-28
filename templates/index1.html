@@ -1,0 +1,151 @@
+<html>
+<head>
+    <title>Quizz Application</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).reddy(function(){      # jquery code
+        $("#b1").click(function(){
+            $(".rb").show();
+            $(".rb").attr("disabled",true);
+            });
+
+         });
+
+         function getAnswers()
+         {
+         document.getElementById("UserAnswer").innerHTML=="";
+         var e= document.getElementsByTagName("input);
+              for(i=0;i<=e.length;i++)
+              {
+                if(e[i].type=="radio")
+                  {
+                  if(e[i].checked)
+                  {
+                   document.getElementById("UserAnswer").innerHTML+="Q "+e[i].name +"The answer you are selected is: "+e[i].value+"<br>";
+                   }
+                  }
+               }
+            }
+    </script>
+
+
+</head>
+<body>
+<div class="container">
+    <h1 class="text-danger mt-3">Simple Quizz App Using Django,Javascript and Jquery</h1>
+    <hr>
+    <div>
+        {% for i in que %}
+        <table>
+            <tr>
+                <td class="text-primary">{{i.id}}) {{i.Question}} ? </td>
+            </tr>
+            <tr>
+                <td> <input type="radio" class="rb" name={{i.id}} id="Option1" value="{{i.Option1}}">{{i.Option1}}</td>
+            </tr>
+            <tr>
+                <td> <input type="radio" class="rb" name={{i.id}} id="Option2" value="{{i.Option2}}">{{i.Option2}}</td>
+            </tr>
+            <tr>
+                <td> <input type="radio" class="rb" name={{i.id}} id="Option3" value="{{i.Option3}}">{{i.Option3}}</td>
+            </tr>
+            <tr>
+                <td> <input type="radio" class="rb" name={{i.id}} id="Option4" value="{{i.Option4}}">{{i.Option4}}</td>
+            </tr>
+            <tr>
+                <td> <label id="Correct_Answer" class="rb"  style="display:none; color:green"><b>{{i.Correct_Answer}}</b></label> </td>
+            </tr>
+        </table>
+        <hr>
+        {% endfor %}
+
+
+        <input type="submit" class="btn btn-success" value="Submit" id="b1" onclick="getAnswers() ">
+        <br>
+        <b id="UserAnswer"></b>
+        <!-- answers = [{% for q in que %}'{{ q.que }}',{% endfor %}] --!>
+        <!-- <label id="Correct_Answer" class="rb"  style="display:none; color:green"><b>{{q.Correct_Answer}}</b></label> --!>
+        <!--<a href="/" class = "button">Go Back</a>--!>
+
+		var total = answers.length;
+		var score = 0;
+		var choice = []
+
+
+	//getting choices
+	/*
+	var q1 = document.forms["quizForm"]["q1"].value;
+	var q2 = document.forms["quizForm"]["q2"].value;
+	var q3 = document.forms["quizForm"]["q3"].value;
+	var q4 = document.forms["quizForm"]["q4"].value;
+	var q5 = document.forms["quizForm"]["q5"].value;
+*/
+//new dynamic method 1
+	for(var i = 1; i <= total; i++){
+
+		choice[i] = document.forms["quizForm"]["q"+i].value;
+	}
+
+
+	//validation
+	/*
+	for(i = 1; i <= total; i++){
+		if(eval('q'+i) == null || eval('q'+i) == ''){
+			alert('you missed question ' + i);
+			return false;
+		}
+	}
+	*/
+	for(i = 1; i <= total; i++){
+		if(choice[i] == null || choice[i] == ''){
+			alert('you missed question ' + i);
+			return false;
+		}
+	}
+
+
+	//set correct answer
+	//var answers = ["b", "d", "a", "c", "c"];
+	//this variable  is replaced by database answer
+
+	//check answer
+	/*
+	for(i = 1; i <= total; i++){
+		if(eval('q' + i) == answers[i - 1]){
+			score++;
+		}
+	}
+	*/
+	// new dynamic method 1 for checking answer
+	for(i = 1; i <= total; i++){
+		if(choice[i] == answers[i - 1]){
+			score++;
+		}
+	}
+
+	//Display Result
+	var results = document.getElementById('results');
+	results.innerHTML = "<h3>You scored <span>" + score + "</span> out of <span>" + total + "</span></h3>"
+	alert("You scored " + score + " out of " + total);
+
+	return false;
+		 que=Quizz.objects.all() # from Quiz model,all data is fetched and assigned to que
+		  print(request.POST.get(q.Question))
+
+    return render(request,"index.html",{"que":que})
+		from here
+		 print(q.Question)
+            print(q.Correct_Answer)
+            print()
+            if q.Correct_Answer == request.POST.get(q.Question):
+                score += 1
+
+
+    </div>
+</div>
+</body>
+</html>

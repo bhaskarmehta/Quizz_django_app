@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Quiz Application</title>
+
+</head>
+<body>
+
+	<div id = "container">
+		<header>
+
+			<h1>Objective test Question</h1>
+		</header>
+
+		<section>
+
+			<form method='POST' action=''>
+				{% csrf_token %}
+			    {% for q in que %}
+				<h3> {{ q.id }}.  {{ q.Question }}</h3>
+
+                <input type = "radio" name = "{{ q.id }}" value = "a" id = "Option1">    {{ q.Option1 }}<br><br>
+				<input type = "radio" name = "{{ q.id }}" value = "b" id = "Option2">   {{ q.Option2 }}<br><br>
+				<input type = "radio" name = "{{ q.id }}" value = "c" id = "Option3">    {{ q.Option3 }}<br><br>
+				<input type = "radio" name = "{{ q.id }}" value = "d" id = "Option4">   {{ q.Option4 }}<br><br>
+
+
+
+			{% endfor %}
+
+				<br><br>
+			<input type = "submit" value = "Submit Answer">
+
+				<!--<input type = "button" onclick = "submitAnswer(answers = [{% for q in que %}'{{ q.Correct_Answer }}',{% endfor %}])" value = "Display">--!>
+				<!--<form action="" method="post" onsubmit=   "return submitAnswers()"> --!>
+
+			</form>
+			<br><br>
+
+		</section>
+
+	</div>
+
+</body>
+</html>
